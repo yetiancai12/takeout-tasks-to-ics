@@ -21,6 +21,6 @@
 
 ## 还没做或还没试
 
-- 还没有可打开的公开页面链接。放到 GitHub Pages 需要先建公开仓库，需批准后再发。
+- 公开审查页已部署：https://yetiancai12.github.io/takeout-tasks-to-ics/ 。Outlook / Apple 导入仍未实测。
 - 没有用 Outlook 或 Apple 提醒事项实际导入，不能写成已经可以导入。
-- Gumroad 官方授权校验还不能用真码测，因为商品还没上架。页面已接上官方校验接口，上架并填入商品 permalink 后即可改走真码，并关掉临时审查码。
+- Gumroad 官方授权校验还不能用真码测，因为商品还没上架。页面已接上官方校验接口，上架并填入商品 product_id 后即可改走真码，并关掉临时审查码。
