@@ -2,7 +2,6 @@ import { parseTasksJson, toVtodoIcs, toVeventIcs, previewRows } from "./lib/conv
 import { extractTasksJson, isZip } from "./lib/zip.js";
 import { createStoreZip } from "./lib/zipwrite.js";
 import {
-  REVIEW_KEY,
   verifyLicense,
   loadCachedLicense,
   saveCachedLicense,
@@ -62,8 +61,7 @@ function setStatus(message, kind = "") {
 
 function renderLicense() {
   if (isUnlocked()) {
-    const how = license.source === "review" ? "review key" : "Gumroad license";
-    licenseStatus.textContent = `Unlocked with a ${how}. Your files stay in this browser.`;
+    licenseStatus.textContent = "Unlocked with a Gumroad license. Your files stay in this browser.";
     licenseStatus.dataset.kind = "ok";
     licenseInput.disabled = true;
     licenseButton.hidden = true;

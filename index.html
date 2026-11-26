@@ -135,14 +135,13 @@
 
     <section class="panel" aria-labelledby="license-heading">
       <h2 id="license-heading">License key</h2>
-      <p>Paste the Gumroad license key from your receipt to convert your own Takeout file. A purchase link will be added when the product is listed.</p>
+      <p>To convert your own Takeout file, buy a $9 license on <a href="https://yetiancai.gumroad.com/l/takeout-tasks-to-ics">Gumroad</a>, then paste the license key from your receipt. You can still convert the built-in sample without paying.</p>
       <div class="row">
         <input id="license-key" type="text" autocomplete="off" spellcheck="false" placeholder="License key">
         <button type="button" id="license-unlock">Unlock</button>
         <button type="button" class="secondary" id="license-clear" hidden>Remove license</button>
       </div>
       <p id="license-status"></p>
-      <p class="hint" style="color:var(--muted);font-size:0.9rem;margin:8px 0 0">Review build only: until a Gumroad product is listed, use <code>REVIEW-LOCAL-ONLY</code> to test unlocking your own file. This temporary key will be removed before sale.</p>
     </section>
 
     <p id="status"></p>
@@ -172,6 +171,7 @@
   <footer>
     <p>Not affiliated with Google. Task files never leave this page. A license check, if you use one, only sends the key.</p>
   </footer>
+  <script>globalThis.__GUMROAD_PRODUCT_ID = "gyLxnBtW4KMqklj2ABHdKg==";</script>
   <script type="module" src="./app.js"></script>
 </body>
 </html>

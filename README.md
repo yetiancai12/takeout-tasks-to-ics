@@ -13,9 +13,9 @@ This is a review build. It is not a claim that demand or sales have been validat
 - Mark tasks whose repeat rules could not be kept.
 - Optional time zone for preview and `X-WR-TIMEZONE`. Timed due dates are still written in UTC.
 
-Free command-line converters already exist (`takeout_prepper`, `gtask-exporthelper`, `google-tasks-to-ical`). The paid difference, once listed, is: open the page, drop the official export, preview, and download, with no install.
+Free command-line converters already exist (`takeout_prepper`, `gtask-exporthelper`, `google-tasks-to-ical`). The difference here is: open the page, drop the official export, preview, and download, with no install.
 
-Until a Gumroad product is listed, the temporary review key `REVIEW-LOCAL-ONLY` can unlock a local file. That key will be removed before sale.
+To convert your own Takeout file, buy a $9 license at [Gumroad](https://yetiancai.gumroad.com/l/takeout-tasks-to-ics) and paste the key from your receipt. The built-in sample still converts without paying.
 
 ## Run
 

@@ -1,7 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
-  REVIEW_KEY,
   verifyLicense,
   loadCachedLicense,
   saveCachedLicense,
@@ -17,12 +16,23 @@ test("empty key is rejected and the sample remains available", async () => {
   assert.match(result.message, /built-in sample still works/i);
 });
 
-test("review key unlocks only when no Gumroad product id is set", async () => {
-  const ok = await verifyLicense(REVIEW_KEY, { productId: "", now: new Date("2026-11-26T04:00:00Z") });
-  assert.equal(ok.ok, true);
-  assert.equal(ok.source, "review");
-  const blocked = await verifyLicense(REVIEW_KEY, { productId: PRODUCT_ID });
-  assert.equal(blocked.ok, false);
+test("REVIEW-LOCAL-ONLY never unlocks", async () => {
+  const listed = await verifyLicense("REVIEW-LOCAL-ONLY", {
+    productId: PRODUCT_ID,
+    fetchImpl: async () => ({ json: async () => ({ success: false }) }),
+  });
+  assert.equal(listed.ok, false);
+  const unlisted = await verifyLicense("REVIEW-LOCAL-ONLY", { productId: "" });
+  assert.equal(unlisted.ok, false);
+  const storage = memoryStorage({
+    "takeout-tasks-to-ics.license": JSON.stringify({
+      ok: true,
+      status: "valid",
+      key: "REVIEW-LOCAL-ONLY",
+      source: "review",
+    }),
+  });
+  assert.equal(loadCachedLicense(storage), null);
 });
 
 test("live verify sends product_id, not product_permalink", async () => {

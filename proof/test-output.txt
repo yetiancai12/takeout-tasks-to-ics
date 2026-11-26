@@ -1,19 +1,19 @@
-✔ parses the built-in sample and skips deleted tasks (4.978114ms)
-✔ writes VTODO ICS with subtasks, due dates, and recurrence marks (3.8936ms)
-✔ writes optional due-date VEVENT ICS and skips tasks without a due date (1.47379ms)
-✔ preview marks incomplete recurrence and subtasks (1.069512ms)
-✔ rejects files that are not a Tasks export (0.582897ms)
-✔ extracts Tasks.json from a Takeout-style ZIP (57.731416ms)
-✔ per-list export uses the list name (0.830993ms)
-✔ optional time zone is written for timed exports and changes preview labels (0.789487ms)
-✔ empty files and broken JSON have a clear error (0.997395ms)
-✔ a ZIP without Tasks.json has a clear error (0.808487ms)
-✔ a ZIP written by this tool can be read back (4.151959ms)
-✔ empty key is rejected and the sample remains available (0.981935ms)
-✔ review key unlocks only when no Gumroad product id is set (102.222272ms)
-✔ live verify sends product_id, not product_permalink (0.389099ms)
-✔ valid Gumroad licenses are cached; refunded, disputed, and ended subscriptions are not (0.537814ms)
-✔ a network failure does not unlock a new key (0.168772ms)
+✔ parses the built-in sample and skips deleted tasks (4.894643ms)
+✔ writes VTODO ICS with subtasks, due dates, and recurrence marks (4.294644ms)
+✔ writes optional due-date VEVENT ICS and skips tasks without a due date (1.718011ms)
+✔ preview marks incomplete recurrence and subtasks (1.080455ms)
+✔ rejects files that are not a Tasks export (0.603069ms)
+✔ extracts Tasks.json from a Takeout-style ZIP (53.70719ms)
+✔ per-list export uses the list name (1.201052ms)
+✔ optional time zone is written for timed exports and changes preview labels (1.368056ms)
+✔ empty files and broken JSON have a clear error (0.88809ms)
+✔ a ZIP without Tasks.json has a clear error (0.66277ms)
+✔ a ZIP written by this tool can be read back (4.124908ms)
+✔ empty key is rejected and the sample remains available (0.732439ms)
+✔ REVIEW-LOCAL-ONLY never unlocks (0.266847ms)
+✔ live verify sends product_id, not product_permalink (1.307792ms)
+✔ valid Gumroad licenses are cached; refunded, disputed, and ended subscriptions are not (0.462608ms)
+✔ a network failure does not unlock a new key (0.170339ms)
 ℹ tests 16
 ℹ suites 0
 ℹ pass 16
@@ -21,4 +21,4 @@
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 194.128353
+ℹ duration_ms 125.324168
