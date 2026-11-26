@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Takeout Tasks to ICS</title>
+  <meta name="description" content="Convert a Google Takeout Tasks.json export into an ICS file in your browser. No upload, no Google sign-in.">
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f3ee;
+      --ink: #1c1916;
+      --muted: #5c564e;
+      --card: #fffdf9;
+      --line: #e4ddd4;
+      --accent: #0f4c4c;
+      --accent-ink: #f7f3ea;
+      --warn: #8a4b12;
+      --warn-bg: #f8ecd9;
+      --error: #8c1d1d;
+      --ok: #1c5c3a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 16px/1.5 "Source Sans 3", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+    }
+    header, main, footer { max-width: 920px; margin: 0 auto; padding: 0 20px; }
+    header { padding-top: 48px; padding-bottom: 16px; }
+    h1 { font-size: 2rem; margin: 0 0 8px; letter-spacing: -0.03em; }
+    .lede { color: var(--muted); margin: 0 0 24px; max-width: 42em; }
+    #dropzone, .panel {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--card);
+      padding: 20px;
+    }
+    #dropzone {
+      border: 2px dashed #b9b1a6;
+      padding: 32px 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+    #dropzone.drag { border-color: var(--accent); background: #f1f7f6; }
+    #dropzone p { margin: 0 8px 12px; }
+    #dropzone .hint { color: var(--muted); font-size: 0.95rem; }
+    .panel { margin-top: 16px; }
+    .panel h2 { margin: 0 0 8px; font-size: 1.05rem; }
+    .panel p { margin: 0 0 12px; color: var(--muted); }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    input[type="text"], input[type="password"], select {
+      font: inherit;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      background: white;
+      min-width: 16rem;
+    }
+    button, .btn {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font: inherit;
+      padding: 10px 16px;
+      cursor: pointer;
+    }
+    button.secondary { background: #ece7df; color: var(--ink); }
+    #file { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+    #status, #license-status { margin: 12px 0 0; min-height: 1.5em; }
+    #status[data-kind="ok"], #license-status[data-kind="ok"] { color: var(--ok); }
+    #status[data-kind="error"], #license-status[data-kind="error"] { color: var(--error); }
+    #source-label { color: var(--muted); font-size: 0.95rem; }
+    #warnings { margin: 16px 0; padding: 0; list-style: none; }
+    #warnings li {
+      background: var(--warn-bg);
+      color: var(--warn);
+      border-radius: 10px;
+      padding: 10px 12px;
+      margin-bottom: 8px;
+    }
+    #actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      margin: 16px 0 24px;
+    }
+    label.sel { color: var(--muted); }
+    .list {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 16px 16px 8px;
+      margin-bottom: 16px;
+    }
+    .list h2 { margin: 0 0 12px; font-size: 1.15rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    th, td { text-align: left; vertical-align: top; padding: 8px 8px 8px 0; border-top: 1px solid var(--line); }
+    th { color: var(--muted); font-weight: 600; }
+    tr.subtask .title { padding-left: 8px; color: #333; }
+    td.notes { color: var(--muted); white-space: pre-wrap; }
+    .tag {
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 0.75rem;
+      border-radius: 999px;
+      padding: 1px 8px;
+      background: #e4f0ea;
+      color: var(--ok);
+    }
+    .tag.warn { background: var(--warn-bg); color: var(--warn); }
+    .limits, footer { color: var(--muted); font-size: 0.95rem; }
+    .limits { margin: 40px 0 24px; }
+    .limits h2 { color: var(--ink); font-size: 1.1rem; }
+    .limits a, footer a { color: var(--accent); }
+    footer { padding-bottom: 48px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Takeout Tasks to ICS</h1>
+    <p class="lede">Turn a Google Takeout <code>Tasks.json</code> export into an <code>.ics</code> file you can import. The file stays in your browser. You do not sign in to Google, and your tasks are never uploaded. Checking a license key is the only network request, and it sends only the key.</p>
+  </header>
+  <main>
+    <div id="dropzone" role="button" tabindex="0" aria-label="Choose a Tasks.json or Takeout ZIP file">
+      <p><strong>Drop your Tasks.json or Takeout ZIP here</strong></p>
+      <p class="hint">Your own file needs a license key. You can convert the built-in sample without paying.</p>
+      <button type="button" class="secondary" id="use-sample">Convert the sample</button>
+    </div>
+    <input id="file" type="file" accept=".json,.zip,application/json,application/zip">
+
+    <section class="panel" aria-labelledby="license-heading">
+      <h2 id="license-heading">License key</h2>
+      <p>Paste the Gumroad license key from your receipt to convert your own Takeout file. A purchase link will be added when the product is listed.</p>
+      <div class="row">
+        <input id="license-key" type="text" autocomplete="off" spellcheck="false" placeholder="License key">
+        <button type="button" id="license-unlock">Unlock</button>
+        <button type="button" class="secondary" id="license-clear" hidden>Remove license</button>
+      </div>
+      <p id="license-status"></p>
+      <p class="hint" style="color:var(--muted);font-size:0.9rem;margin:8px 0 0">Review build only: until a Gumroad product is listed, use <code>REVIEW-LOCAL-ONLY</code> to test unlocking your own file. This temporary key will be removed before sale.</p>
+    </section>
+
+    <p id="status"></p>
+    <p id="source-label"></p>
+    <ul id="warnings"></ul>
+    <div id="actions" hidden>
+      <label class="sel">Export
+        <select id="list-select"></select>
+      </label>
+      <label class="sel">Time zone
+        <select id="time-zone"></select>
+      </label>
+      <button type="button" id="download-todos">Download tasks (.ics)</button>
+      <button type="button" class="secondary" id="download-events">Download due dates as calendar events</button>
+      <label class="sel"><input type="radio" name="per-list-kind" value="vtodo" checked> Tasks</label>
+      <label class="sel"><input type="radio" name="per-list-kind" value="vevent"> Due dates</label>
+      <button type="button" class="secondary" id="download-per-list">Download one file per list (.zip)</button>
+    </div>
+    <div id="preview"></div>
+    <section class="limits">
+      <h2>What this does, and what it does not</h2>
+      <p>Tasks are written as <code>VTODO</code> items, grouped by list. A second, optional file writes due dates as <code>VEVENT</code> entries for Outlook and Google Calendar, which often ignore to-do items. Import into Outlook or Apple Reminders has not been tested yet with this build.</p>
+      <p>This is not the only way to do the conversion. Free command-line tools already exist, including <a href="https://pypi.org/project/takeout_prepper/">takeout_prepper</a>, <a href="https://github.com/Nockiro/gtask-exporthelper">gtask-exporthelper</a>, and <a href="https://pypi.org/project/google-tasks-to-ical/">google-tasks-to-ical</a>. The difference here is that you open a page, drop the official export, preview it, and download ICS, without installing Python or .NET.</p>
+      <p>Google Takeout often leaves repeat rules incomplete. When a rule can be read, it is kept. When it cannot, that task is exported once and marked in the preview and in the file as <code>X-RECURRENCE-INCOMPLETE</code>.</p>
+    </section>
+  </main>
+  <footer>
+    <p>Not affiliated with Google. Task files never leave this page. A license check, if you use one, only sends the key.</p>
+  </footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

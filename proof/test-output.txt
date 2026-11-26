@@ -1,0 +1,27 @@
+
+> takeout-tasks-to-ics@0.1.0 test
+> node --test test/*.test.js
+
+✔ parses the built-in sample and skips deleted tasks (3.98124ms)
+✔ writes VTODO ICS with subtasks, due dates, and recurrence marks (2.977564ms)
+✔ writes optional due-date VEVENT ICS and skips tasks without a due date (1.277923ms)
+✔ preview marks incomplete recurrence and subtasks (1.093768ms)
+✔ rejects files that are not a Tasks export (0.452158ms)
+✔ extracts Tasks.json from a Takeout-style ZIP (53.126191ms)
+✔ per-list export uses the list name (0.849021ms)
+✔ optional time zone is written for timed exports and changes preview labels (1.382135ms)
+✔ empty files and broken JSON have a clear error (1.070864ms)
+✔ a ZIP without Tasks.json has a clear error (0.935426ms)
+✔ a ZIP written by this tool can be read back (4.301082ms)
+✔ empty key is rejected and the sample remains available (0.788938ms)
+✔ review key unlocks only when no Gumroad product is listed (95.090956ms)
+✔ valid Gumroad licenses are cached; refunded and cancelled keys are not (0.464015ms)
+✔ a network failure does not unlock a new key (0.155811ms)
+ℹ tests 15
+ℹ suites 0
+ℹ pass 15
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 181.511439

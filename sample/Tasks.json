@@ -1,0 +1,87 @@
+{
+  "kind": "tasks#taskLists",
+  "items": [
+    {
+      "kind": "tasks#taskList",
+      "id": "list-personal",
+      "title": "Personal",
+      "updated": "2026-11-20T08:00:00.000Z",
+      "items": [
+        {
+          "id": "task-buy-groceries",
+          "title": "Buy groceries",
+          "notes": "Milk, eggs, and bread.\nAlso coffee.",
+          "status": "needsAction",
+          "due": "2026-11-28T00:00:00.000Z",
+          "updated": "2026-11-20T08:00:00.000Z",
+          "selfLink": "https://www.googleapis.com/tasks/v1/lists/list-personal/tasks/task-buy-groceries"
+        },
+        {
+          "id": "task-pack-bags",
+          "title": "Pack bags",
+          "notes": "Charger and passport",
+          "status": "needsAction",
+          "due": "2026-11-28T00:00:00.000Z",
+          "updated": "2026-11-21T09:30:00.000Z",
+          "parent": "task-buy-groceries"
+        },
+        {
+          "id": "task-call-dentist",
+          "title": "Call dentist",
+          "status": "completed",
+          "completed": "2026-11-18T15:12:00.000Z",
+          "due": "2026-11-18T00:00:00.000Z",
+          "updated": "2026-11-18T15:12:00.000Z"
+        },
+        {
+          "id": "task-weekly-review",
+          "title": "Weekly review",
+          "notes": "Recurrence may be missing from Takeout.",
+          "status": "needsAction",
+          "due": "2026-11-27T00:00:00.000Z",
+          "updated": "2026-11-20T08:00:00.000Z",
+          "recurrence": ["RRULE:FREQ=WEEKLY;BYDAY=FR"]
+        },
+        {
+          "id": "task-undated",
+          "title": "Decide on a gift",
+          "notes": "No due date",
+          "status": "needsAction",
+          "updated": "2026-11-19T12:00:00.000Z"
+        }
+      ]
+    },
+    {
+      "kind": "tasks#taskList",
+      "id": "list-work",
+      "title": "Work",
+      "updated": "2026-11-22T10:00:00.000Z",
+      "items": [
+        {
+          "id": "task-ship-invoice",
+          "title": "Send invoice",
+          "notes": "Q4 consulting invoice",
+          "status": "needsAction",
+          "due": "2026-12-01T17:00:00.000Z",
+          "updated": "2026-11-22T10:00:00.000Z",
+          "starred": true
+        },
+        {
+          "id": "task-broken-repeat",
+          "title": "Standup notes",
+          "status": "needsAction",
+          "due": "2026-11-26T00:00:00.000Z",
+          "updated": "2026-11-25T08:00:00.000Z",
+          "recurrence": ["INCOMPLETE"]
+        },
+        {
+          "id": "task-deleted",
+          "title": "Old draft",
+          "status": "needsAction",
+          "updated": "2026-10-01T00:00:00.000Z",
+          "deleted": true
+        }
+      ]
+    }
+  ]
+}
