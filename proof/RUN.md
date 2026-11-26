@@ -11,7 +11,7 @@
 
 ## 得到了什么
 
-- 单元测试：15 通过，0 失败。完整输出在 `proof/test-output.txt`。
+- 单元测试：16 通过，0 失败。完整输出在 `proof/test-output.txt`。
 - 用该示例实际生成的两份 ICS（无水印），并用 Python `icalendar` 库成功解析（不是坏文件）：
   - `proof/sample-vtodo.ics`：7 个 `VTODO`（已跳过 1 条删除任务）。含 `RELATED-TO` 子任务、`DUE;VALUE=DATE`、带时刻的 `DUE`、`STATUS:COMPLETED`、`RRULE:FREQ=WEEKLY;BYDAY=FR`。Work 列表里的 “Standup notes” 在预览和 ICS 中标明 `X-RECURRENCE-INCOMPLETE`（未能保留重复）。无到期日的 “Decide on a gift” 在 VTODO 中保留。
   - `proof/sample-vevent.ics`：6 个 `VEVENT`，只含有到期日的任务；“Decide on a gift” 未写入。
